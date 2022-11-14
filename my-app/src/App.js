@@ -1,12 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
+import RoutesPage from "routes";
 
 function App() {
-  return (
-    <div className="App">
-     
-    </div>
-  );
+  return <RoutesPage />;
 }
 
 export default App;
