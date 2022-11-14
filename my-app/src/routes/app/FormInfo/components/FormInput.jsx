@@ -1,35 +1,15 @@
-import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import PersonPinIcon from '@mui/icons-material/PersonPin';
+import PersonPinIcon from "@mui/icons-material/PersonPin";
+import { Button } from "@mui/material";
 
 import MyInput from "utils/components/FormikElements/MyInput";
-import { Button } from "@mui/material";
+import { elementsInfo, options } from "constant";
+import MyMultiSelect from "utils/components/FormikElements/MyMultiSelect";
 
 const FormInput = () => {
   const checkField = Yup.string().required("This field is required").trim();
-  const elementsInfo = [
-    {
-        type : "text",
-        label : "First Name",
-        name : "firstName",
-    },
-    {
-        type : "text",
-        label : "Last Name",
-        name : "lastName",
-    },
-    {
-        type : "number",
-        label : "Age",
-        name : "age",
-    },
-    {
-        type : "text",
-        label : "Skills",
-        name : "skills",
-    }
-]
+
   return (
     <Formik
       validationSchema={Yup.object({
@@ -42,7 +22,7 @@ const FormInput = () => {
         firstName: "",
         lastName: "",
         age: "",
-        skills: "",
+        skills: [],
       }}
       onSubmit={(values, actions) => {
         alert(JSON.stringify(values));
@@ -52,13 +32,20 @@ const FormInput = () => {
         {elementsInfo.map((item) => (
           <MyInput
             type={item.type}
-            style={{ width: "50%" , margin : "10px 0" }}
+            style={{ width: "50%", margin: "10px 0" }}
             name={item.name}
             label={item.label}
             icon={<PersonPinIcon />}
           />
         ))}
-        <Button type="submit" className="bg-gradient-to-r from-orange-500 to-blue-300 my-5" variant="contained">Submit</Button>
+        <MyMultiSelect label="Skills" name="skills" options={options} />
+        <Button
+          type="submit"
+          className="bg-gradient-to-r to-orange-500 from-blue-300 my-5"
+          variant="contained"
+        >
+          Submit
+        </Button>
       </Form>
     </Formik>
   );
