@@ -2,19 +2,21 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import EqualizerIcon from "@mui/icons-material/Equalizer";
 
 import MyInput from "utils/components/FormikElements/MyInput";
-import { elementsInfo, options } from "constant";
+import { CHART, elementsInfo, options } from "constant";
 import MyMultiSelect from "utils/components/FormikElements/MyMultiSelect";
-import { setItemsInfo, setUser } from "redux/infoSlice";
-import { useEffect } from "react";
+import { setUser } from "redux/infoSlice";
+import { IconButton } from "@mui/material";
 
 const FormInput = () => {
   const checkField = Yup.string().required("This field is required").trim();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.info.user);
-
+  const navigate = useNavigate();
   return (
     <Formik
       validationSchema={Yup.object({
@@ -53,6 +55,9 @@ const FormInput = () => {
         >
           Submit
         </Button>
+        <IconButton onClick={() => navigate(`/${CHART}`)}>
+          <EqualizerIcon className="text-gray-700 hover:text-orange-500 hover:cursor-pointer" />
+        </IconButton>
       </Form>
     </Formik>
   );
