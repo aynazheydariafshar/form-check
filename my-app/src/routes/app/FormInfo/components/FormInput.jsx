@@ -16,23 +16,22 @@ const FormInput = () => {
         firstName: checkField,
         lastName: checkField,
         age: checkField,
-        skills: checkField,
       })}
       initialValues={{
         firstName: "",
         lastName: "",
         age: "",
-        skills: [],
+        skills: [options[0]],
       }}
       onSubmit={(values, actions) => {
-        alert(JSON.stringify(values));
+        localStorage.setItem('info', JSON.stringify(values));
       }}
     >
       <Form className="flex flex-col my-5 justify-center items-center">
         {elementsInfo.map((item) => (
           <MyInput
             type={item.type}
-            style={{ width: "50%", margin: "10px 0" }}
+            style={{ width: "75%", margin: "10px 0" }}
             name={item.name}
             label={item.label}
             icon={<PersonPinIcon />}
@@ -41,7 +40,8 @@ const FormInput = () => {
         <MyMultiSelect label="Skills" name="skills" options={options} />
         <Button
           type="submit"
-          className="bg-gradient-to-r to-orange-500 from-blue-300 my-5"
+          className="bg-gradient-to-r to-orange-500 from-blue-300"
+          sx={{margin  :"10px 0"}}
           variant="contained"
         >
           Submit

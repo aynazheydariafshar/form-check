@@ -42,7 +42,7 @@ const MyMultiSelect = ({ label, name, options }) => {
   };
 
   return (
-    <FormControl sx={{ width: "50%", margin: "10px 0" }}>
+    <FormControl sx={{ width: "75%", margin: "10px 0" }}>
       <InputLabel>{label}</InputLabel>
       <Select
         multiple
