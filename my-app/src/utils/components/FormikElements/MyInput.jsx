@@ -1,7 +1,8 @@
+import { InputAdornment } from "@mui/material";
 import { TextField } from "@mui/material";
 import { useField } from "formik";
 
-const MyInput = ({ ...props }) => {
+const MyInput = ({ icon, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
@@ -14,6 +15,14 @@ const MyInput = ({ ...props }) => {
       }}
       InputProps={{
         ...props.InputProps,
+        endAdornment: (
+          <InputAdornment
+            style={{ color: meta.touched && meta.error ? "red" : "green" }}
+            position="end"
+          >
+            {icon}
+          </InputAdornment>
+        ),
       }}
       {...field}
       {...props}
