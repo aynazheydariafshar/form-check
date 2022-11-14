@@ -27,8 +27,8 @@ export default function TableInfo() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {user?.map((row) => (
-            <TableRow key={row.firstName}>
+          {user?.map((row , index) => (
+            <TableRow key={index}>
               <TableCell align="center" component="th">
                 {row.firstName}
               </TableCell>
