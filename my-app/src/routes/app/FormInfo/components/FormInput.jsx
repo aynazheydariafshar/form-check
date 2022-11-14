@@ -31,8 +31,7 @@ const FormInput = () => {
         skills: [options[0]],
       }}
       onSubmit={(values, actions) => {
-        localStorage.setItem("user", JSON.stringify(values));
-        dispatch(setUser([...user, JSON.parse(localStorage.getItem("user"))]));
+        dispatch(setUser([...user, values]));
         // console.log(user)
       }}
     >
