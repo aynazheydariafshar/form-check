@@ -2,13 +2,18 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 
 import MyInput from "utils/components/FormikElements/MyInput";
 import { elementsInfo, options } from "constant";
 import MyMultiSelect from "utils/components/FormikElements/MyMultiSelect";
+import { setItemsInfo, setUser } from "redux/infoSlice";
+import { useEffect } from "react";
 
 const FormInput = () => {
   const checkField = Yup.string().required("This field is required").trim();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.info.user);
 
   return (
     <Formik
@@ -24,7 +29,9 @@ const FormInput = () => {
         skills: [options[0]],
       }}
       onSubmit={(values, actions) => {
-        localStorage.setItem('info', JSON.stringify(values));
+        localStorage.setItem("user", JSON.stringify(values));
+        dispatch(setUser([...user, JSON.parse(localStorage.getItem("user"))]));
+        // console.log(user)
       }}
     >
       <Form className="flex flex-col my-5 justify-center items-center">
@@ -41,7 +48,7 @@ const FormInput = () => {
         <Button
           type="submit"
           className="bg-gradient-to-r to-orange-500 from-blue-300"
-          sx={{margin  :"10px 0"}}
+          sx={{ margin: "10px 0" }}
           variant="contained"
         >
           Submit
