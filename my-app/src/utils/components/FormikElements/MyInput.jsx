@@ -17,7 +17,7 @@ const MyInput = ({ icon, ...props }) => {
         ...props.InputProps,
         endAdornment: (
           <InputAdornment
-            style={{ color: meta.touched && meta.error ? "red" : "green" }}
+            style={{ color: meta.touched && meta.error ? "red" : "" }}
             position="end"
           >
             {icon}
