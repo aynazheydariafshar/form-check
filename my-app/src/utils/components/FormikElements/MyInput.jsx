@@ -1,32 +1,23 @@
 import { InputAdornment } from "@mui/material";
 import { TextField } from "@mui/material";
-import { useField } from "formik";
+import PersonPinIcon from "@mui/icons-material/PersonPin";
 
-const MyInput = ({ icon, ...props }) => {
-  const [field, meta] = useField(props);
+const MyInput = (props) => {
+  const { errorMessage ,onChange,id, ...inputProps } = props;
 
   return (
-    <TextField
-      fullWidth
-      helperText={meta.touched && meta.error ? meta.error : ""}
-      error={!!meta.touched && !!meta.error}
-      inputProps={{
-        ...props.inputProps,
-      }}
-      InputProps={{
-        ...props.InputProps,
-        endAdornment: (
-          <InputAdornment
-            style={{ color: meta.touched && meta.error ? "red" : "" }}
-            position="end"
-          >
-            {icon}
-          </InputAdornment>
-        ),
-      }}
-      {...field}
-      {...props}
-    />
+    <>
+      <TextField
+        {...inputProps}
+        required
+        fullWidth
+        style={{ width: "75%", margin: "10px 0" }}
+        onChange={onChange}
+        InputProps={{
+          endAdornment: <InputAdornment position="end">{<PersonPinIcon />}</InputAdornment>,
+        }}
+      />
+    </>
   );
 };
 

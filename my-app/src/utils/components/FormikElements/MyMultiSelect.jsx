@@ -1,5 +1,4 @@
 import { FormControl } from "@mui/material";
-import { useFormikContext } from "formik";
 import { Select } from "@mui/material";
 import { MenuItem } from "@mui/material";
 import { Checkbox } from "@mui/material";
@@ -18,37 +17,36 @@ const MenuProps = {
     },
   },
 };
-const MyMultiSelect = ({ label, name, options }) => {
-  const { values, setFieldValue } = useFormikContext();
+const MyMultiSelect = ({ label, setValues, values, options }) => {
   const isAllSelected =
-    options?.length > 0 && values[name].length === options?.length;
+    options?.length > 0 && values.skills.length === options?.length;
 
   const handleChange = (event) => {
     const value = event.target.value;
     if (value[value.length - 1] === "all") {
-      setFieldValue(
-        name,
-        values[name].length === options.length
-          ? []
-          : options.map((item) => item)
-      );
+      setValues({
+        ...values,
+        skills: values.skills.length === options.length ? [] : options,
+      });
       return;
     }
-    let temp = value;
-    if (typeof value === "string") {
-      temp = value.split(",");
-    }
-    setFieldValue(name, temp);
+    console.log(values.skills);
+    setValues({
+      ...values,
+      skills: typeof value === "string" ? value.split(",") : value,
+    });
   };
 
   return (
     <FormControl sx={{ width: "75%", margin: "10px 0" }}>
       <InputLabel>{label}</InputLabel>
       <Select
+        required
         multiple
-        value={values[name]}
+        name="skills"
+        value={values.skills}
         onChange={handleChange}
-        renderValue={(selected) => selected.join(", ")}
+        renderValue={(selected) => values.skills.join(", ")}
         MenuProps={MenuProps}
         input={<OutlinedInput label={label} />}
       >
@@ -56,7 +54,7 @@ const MyMultiSelect = ({ label, name, options }) => {
           <Checkbox
             checked={isAllSelected}
             indeterminate={
-              values[name].length > 0 && values[name].length < options?.length
+              values.skills.length > 0 && values.skills.length < options?.length
             }
           />
           <ListItemText primary="all" />
@@ -68,7 +66,7 @@ const MyMultiSelect = ({ label, name, options }) => {
             value={option}
           >
             <Checkbox
-              checked={values[name]?.findIndex((el) => el === option) > -1}
+              checked={values.skills?.findIndex((el) => el === option) > -1}
             />
             <Typography>{option}</Typography>
           </MenuItem>
